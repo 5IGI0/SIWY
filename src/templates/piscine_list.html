@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table>
+	<tr>
+		<th>campus</th>
+		<th>year</th>
+		<th>month</th>
+		<th>status</th>
+		<th>watch</th>
+	</tr>
+	{% for piscine in piscines %}
+	<tr>
+		<td>{{piscine.campus}}</td>
+		<td>{{piscine.year}}</td>
+		<td>{{piscine.month}}</td>
+		{% if date() < date(piscine.begin_at-86400) %}
+			<td>Begins in {{((piscine.begin_at - ('now'|date('U'))) / 86400)|round}} day(s)</td>
+		{% elseif date() < date(piscine.end_at+43200) %}
+			<td>Ends in {{((piscine.end_at - ('now'|date('U'))) / 86400)|round|abs}} day(s)</td>
+		{% else %}
+			<td>Ended {{((('now'|date('U') - piscine.end_at)) / 86400)|round}} day(s) ago</td>
+		{% endif %}
+		<td><a href="/piscine.php?id={{piscine.piscine_id}}">watch</a></td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}

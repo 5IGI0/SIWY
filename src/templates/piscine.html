@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for title, category in pushes %}
+<h2>{{title}}</h2>
+<table>
+	<tr>
+		<th></th>
+		{% for mark in category %}
+			<th>{{mark.name}}</th>
+		{% endfor %}
+	</tr>
+	<tr>
+		<td>average mark</td>
+		{% for mark in category %}
+			<td>{{mark.avg|round(2)}}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		<td>push%</td>
+		{% for mark in category %}
+			<td>{{mark.push|round(2)}}</td>
+		{% endfor %}
+	</tr>
+	<tr>
+		<td>average retry</td>
+		{% for mark in category %}
+			<td>{{mark.retry|round(2)}}</td>
+		{% endfor %}
+	</tr>
+</table>
+{% endfor %}
+<p>
+	<span>piscineux: </span>
+	{% for piscineu in piscineux %}
+		<span><a href="https://profile.intra.42.fr/users/{{piscineu.login}}">{{piscineu.login}}</a></span>
+	{% endfor %}
+</p>
+{% endblock %}
